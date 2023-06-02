@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React from 'react';
 import {
     Collapse,
     Navbar,
@@ -6,45 +6,34 @@ import {
     NavbarBrand,
     Nav,
     NavItem,
-    NavLink,
-    NavbarText
+    NavLink
 } from 'reactstrap';
-import CartSummary from '../cart/CartSummary';
+import CartSummary from "../cart/CartSummary";
 
-export default class Navi extends Component {
+export default class Navi extends React.Component {
     constructor(props) {
         super(props);
 
         this.toggle = this.toggle.bind(this);
-        this.state = {
-            isOpen: false
-        };
+        this.state = { isOpen: false };
     }
     toggle() {
-        this.setState({
-            isOpen: !this.state.isOpen
-        });
+        this.setState({ isOpen: !this.state.isOpen });
     }
-
     render() {
-
         return (
             <div>
-                <Navbar expand="md">
-                    <NavbarBrand href="/">reactstrap</NavbarBrand>
+                <Navbar color='light' light expand='md'>
+                    <NavbarBrand href="/">Northwind Mağazası</NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
-                    <Collapse isOpen={this.state.isOpen} navbar>
+                    <Collapse isOpen={this.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             <NavItem>
-                                <NavLink href="/components/">Components</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink href="https://github.com/reactstrap/reactstrap">
-                                    GitHub
+                                <NavLink href="/saveproduct/">Ürün Ekle
                                 </NavLink>
                             </NavItem>
-                            <CartSummary/>
-                        </Nav>                        
+                            <CartSummary></CartSummary>
+                        </Nav>
                     </Collapse>
                 </Navbar>
             </div>

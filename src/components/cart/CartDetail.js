@@ -1,18 +1,19 @@
-import React,{Component} from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as cartActions from "../../redux/actions/cartActions"
+import * as cartActions from "../../redux/actions/cartActions";
 import { Table,Button } from "reactstrap";
 import alertify from "alertifyjs";
 
-class CartDetail extends Component{
+class CartDetail extends Component {
     removeFromCart(product){
         this.props.actions.removeFromCart(product);
-        alertify.warning(product.productName + " sepetten çıkarıldı");
+        alertify.error(product.productName + " sepetten silindi");
     }
-    render(){
-        return(
+    render() {
+        return (
             <div>
+                <h1>Sepetim</h1>
                 <Table striped>
                     <thead>
                         <tr>
@@ -27,7 +28,7 @@ class CartDetail extends Component{
                             </th>
                             <th>
                                 Quantity
-                            </th>
+                            </th>                            
                             <th>
                                 #
                             </th>
@@ -39,8 +40,8 @@ class CartDetail extends Component{
                                 <th scope="row">{cartItem.product.id}</th>
                                 <td>{cartItem.product.productName}</td>
                                 <td>{cartItem.product.unitPrice}</td>
-                                <td>@{cartItem.quantity}</td>
-                                <td><Button color="danger" onClick={()=>this.removeFromCart(cartItem.product)}>sil</Button></td>
+                                <td>{cartItem.quantity}</td>                                
+                                <td><Button color="danger" onClick={() => this.removeFromCart(cartItem.product)}>Sil</Button></td>
                             </tr>
                         ))}
 
@@ -51,11 +52,10 @@ class CartDetail extends Component{
     }
 }
 
-
-function mapDispatchToProps(dispatch){
-    return{
-        actions:{
-            removeFromCart:bindActionCreators(cartActions.removeFromCart,dispatch)
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: {
+            removeFromCart: bindActionCreators(cartActions.removeFromCart, dispatch)
         }
     }
 }
@@ -65,5 +65,4 @@ function mapStateToProps(state) {
         cart: state.cartReducer
     }
 }
-
-export default connect(mapStateToProps,mapDispatchToProps)(CartDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(CartDetail);
